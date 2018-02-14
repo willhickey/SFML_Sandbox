@@ -9,6 +9,8 @@ int main()
     sf::CircleShape shape(20.f, 60);
     shape.setFillColor(sf::Color::Blue);
     float x, y;
+    float xCenter = 400, yCenter = 300;
+    float speed = 100;
     float angle = 0;
     sf::Clock clock;
 
@@ -21,10 +23,20 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        x = 250*cos( angle * PI / 180.0);
-        y = 250*sin(angle * PI / 180.0);
 
-        shape.setPosition(400+x, 300+y);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            yCenter -= speed * deltaTime;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            yCenter += speed * deltaTime;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            xCenter -= speed * deltaTime;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            xCenter += speed * deltaTime;
+
+        x = 20*cos(angle * PI / 180.0);
+        y = 20*sin(angle * PI / 180.0);
+
+        shape.setPosition(xCenter+x, yCenter+y);
         window.clear();
         window.draw(shape);
         window.display();
