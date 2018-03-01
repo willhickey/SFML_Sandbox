@@ -10,7 +10,6 @@ class View
     public:
         View();
         virtual ~View();
-        //void Draw(sf::RenderWindow*, Maze*, Player*);
         void Draw(sf::RenderWindow*, Model*);
 
     protected:
@@ -23,7 +22,7 @@ class View
         sf::Texture targetTexture;
         sf::Texture crateOnTargetTexture;
         sf::Texture playerTexture;
-        //sf::RenderWindow window;
+
 };
 
 #endif // VIEW_H

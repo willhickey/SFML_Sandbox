@@ -5,23 +5,6 @@ Maze::Maze()
 Maze::Maze(int w, int h, char** mazeDefinition)
 {
     Initialize(w, h, mazeDefinition);
-    /*width = w;
-    height = h;
-    maze = new Square*[height];
-    for(int i=0; i<height; i++)
-    {
-        maze[i] = new Square[width];
-        for(int j=0; j<width; j++)
-        {
-            //maze[i][j]=new Square();
-            if(mazeDefinition[i][j]=='1')
-                maze[i][j].IsWall = 1;
-            else if(mazeDefinition[i][j]=='8')
-                maze[i][j].HasCrate = 1;
-            else if(mazeDefinition[i][j]=='9')
-                maze[i][j].IsTarget = 1;
-        }
-    }*/
 }
 void Maze::Initialize(int w, int h, char** mazeDefinition)
 {
@@ -33,13 +16,13 @@ void Maze::Initialize(int w, int h, char** mazeDefinition)
         maze[i] = new Square[width];
         for(int j=0; j<width; j++)
         {
-            //switch this to use bits instead. Currently can't put a crate on a target.
-            //maze[i][j]=new Square();
-            if(mazeDefinition[i][j]=='1')
+            //0=open, 1=wall, 2=crate, 4=target, 6=crate on target
+            //3, 5 & 7 aren't really valid
+            if(((mazeDefinition[i][j]-'0') & 1) == 1)
                 maze[i][j].IsWall = 1;
-            else if(mazeDefinition[i][j]=='8')
+            if(((mazeDefinition[i][j]-'0') & 2) == 2)
                 maze[i][j].HasCrate = 1;
-            else if(mazeDefinition[i][j]=='9')
+            if(((mazeDefinition[i][j]-'0') & 4) == 4)
                 maze[i][j].IsTarget = 1;
         }
     }
@@ -55,7 +38,11 @@ int Maze::Width()
 
 Maze::~Maze()
 {
-    //dtor
+    for(int i=0; i<height; i++)
+    {
+        delete[] maze[i];
+    }
+    delete[] maze;
 }
 
 bool Maze::IsWall(int x, int y)
@@ -71,6 +58,7 @@ bool Maze::IsTarget(int x, int y)
 {
     return maze[y][x].IsTarget;
 }
+//Moving crates isn't transactional at this level, but the Model handles that.
 void Maze::SetCrate(int x, int y, bool newValue)
 {
     maze[y][x].HasCrate = newValue;

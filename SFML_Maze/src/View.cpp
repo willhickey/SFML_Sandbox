@@ -17,7 +17,6 @@ View::~View()
     //dtor
 }
 
-//void View::Draw(sf::RenderWindow *window, Maze *currentMaze, Player *currentPlayer)
 void View::Draw(sf::RenderWindow *window, Model *currentModel)
 {
     Maze* currentMaze = currentModel->GetMaze();

@@ -2,9 +2,7 @@
 
 Model::Model(int mazeWidth, int mazeHeight, char** mazeDefinition, int startX, int startY)
 {
-    //instantiate
-    //currentMaze = Maze(mazeWidth, mazeHeight, mazeDefinition);
-    //currentPlayer = Player(startX, startY);
+    //initialize the game state
     currentMaze.Initialize(mazeWidth, mazeHeight, mazeDefinition);
     currentPlayer.Initialize(startX, startY);
 }
@@ -14,11 +12,12 @@ Model::~Model()
 {
     //dtor
 }
-
+//returns a reference the player. Used by the view
 Player* Model::GetPlayer()
 {
     return &currentPlayer;
 }
+//returns a reference the maze. Used by the view
 Maze* Model::GetMaze()
 {
     return &currentMaze;
@@ -49,6 +48,10 @@ bool Model::MoveRight()
     MoveTo(currentPlayer.x+1, currentPlayer.y, currentPlayer.x+2, currentPlayer.y);
     return true;
 }
+
+//Attempt to move player to toX,toY
+//toNextX and toNextY are the next square in the same direction. If there's a crate at toX,toY
+//it will need to be moved to toNextX,toNextY. This reduces duplicated code in the Move* methods
 bool Model::MoveTo(int toX, int toY, int toNextX, int toNextY)
 {
     if(currentMaze.IsWall(toX, toY))
@@ -71,6 +74,9 @@ bool Model::MoveTo(int toX, int toY, int toNextX, int toNextY)
     currentPlayer.y = toY;
     return true;
 }
+
+//attempts to push a crate from xy to xy
+//Either moves the crate and returns true or doesn't move the crate and returns false
 bool Model::PushCrateFromTo(int fromX, int fromY, int toX, int toY)
 {
     if(currentMaze.IsWall(toX, toY) || currentMaze.HasCrate(toX, toY))
@@ -84,6 +90,8 @@ bool Model::PushCrateFromTo(int fromX, int fromY, int toX, int toY)
         return true;
     }
 }
+
+//returns true if every target has a crate on it. otherwise returns false.
 bool Model::CheckIfWinConditionMet()
 {
     for(int i=0; i<currentMaze.Height(); i++)

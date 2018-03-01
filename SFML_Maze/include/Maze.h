@@ -7,9 +7,9 @@ enum Directions {TheLeft, TheRight, Above, Below};
 
 struct Square
 {
-    bool IsWall = 0;
-    bool HasCrate = 0;
-    bool IsTarget = 0;
+    bool IsWall = 0;        //1
+    bool HasCrate = 0;      //2
+    bool IsTarget = 0;      //4
 };
 
 class Maze
