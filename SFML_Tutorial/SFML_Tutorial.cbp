@@ -9,16 +9,20 @@
 			<Target title="Debug">
 				<Option output="bin/Debug/SFML_Tutorial" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:/DevTools/SFML-2.4.2/include" />
 				</Compiler>
+				<Linker>
+					<Add directory="C:/DevTools/SFML-2.4.2/lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/SFML_Tutorial" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
