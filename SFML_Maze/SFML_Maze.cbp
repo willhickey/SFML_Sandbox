@@ -33,12 +33,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="C:/DevTools/Libraries/SFML-2.4.2/include" />
+			<Add directory="C:/DevTools/SFML-2.4.2/include" />
 		</Compiler>
 		<Linker>
 			<Add library="sfml-graphics" />
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
 			<Add directory="C:/DevTools/Libraries/SFML-2.4.2/lib" />
+			<Add directory="C:/DevTools/SFML-2.4.2/lib" />
 		</Linker>
 		<Unit filename="MazeMain.cpp" />
 		<Unit filename="include/Maze.h" />
